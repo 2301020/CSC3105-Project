@@ -9,12 +9,12 @@ import pandas as pd
 from numpy import vstack
 
 
-def import_from_files():
+def import_from_files(rootdir):
     """
         Read .csv files and store data into an array
         format: |LOS|NLOS|data...|
     """
-    rootdir = '../dataset/'
+    # rootdir = '../dataset/'
     output_arr = []
     first = 1
     for dirpath, dirnames, filenames in os.walk(rootdir):
@@ -24,7 +24,7 @@ def import_from_files():
             output_data = [] 
             # read data from file
             df = pd.read_csv(filename, sep=',', header=0)
-            input_data = df.as_matrix()
+            input_data = df.to_numpy()
             # append to array
             if first > 0:
                 first = 0
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     # import raw data from folder with dataset
     print("Importing dataset to numpy array")
     print("-------------------------------")
-    data = import_from_files()
+    data = import_from_files('../dataset/')
     print("-------------------------------")
     # print dimensions and data
     print("Number of samples in dataset: %d" % len(data))
