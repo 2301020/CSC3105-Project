@@ -1,1 +1,4 @@
 UWB_LOS_NLOS_Data_Set/code/env
+.venv
+data_analysis/pickled_data_sets
+data_analysis/pickled_models
