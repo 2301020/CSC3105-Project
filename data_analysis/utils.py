@@ -65,6 +65,27 @@ def plot_histogram(df): # Function to plot feature-NLOS histogram (Code entirely
     plt.tight_layout()
     plt.show()
 
+def plot_scatter(df): # Function to plot feature-RANGE scatterplot (Code entirely lifted from [4] https://github.com/ptrpfa/UWB-LOS-NLOS-Classification/tree/main)
+    # Get non-class features
+    features = [col for col in df.columns if col != 'RANGE']
+    plt.figure(figsize=(20, 20))
+    for i, feature in enumerate(features, start=1):
+        plt.subplot(len(features)//2 + 1, 2, i)
+        try:
+            sns.scatterplot(data=df, x=feature, y='RANGE')
+        except LinAlgError as e:
+            # print(f"Warning: {e}")
+            sns.scatterplot(data=df, x=feature, y='RANGE')
+        plt.title(f'Distribution of {feature} by RANGE')
+        plt.xlabel(feature)
+        plt.ylabel('RANGE')
+        # los_skewness = df[df['RANGE'] == 0][feature].skew()
+        # nlos_skewness = df[df['RANGE'] == 1][feature].skew()
+        # plt.text(0.9, 0.9, f'Skewness (LOS): {los_skewness:.2f}\nSkewness (RANGE): {nlos_skewness:.2f}', 
+        #          horizontalalignment='right', verticalalignment='top', transform=plt.gca().transAxes)
+    plt.tight_layout()
+    plt.show()
+
 def get_top_features(df):
     X = df.drop(columns='NLOS')
     y = df['NLOS']
