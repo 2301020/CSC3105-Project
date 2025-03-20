@@ -13,6 +13,8 @@ import os
 
 from scipy.linalg import LinAlgError
 import pickle, itertools
+from scipy.stats import kstest
+from sklearn.preprocessing import MinMaxScaler
 
 # Methods
 def import_from_files_single_dataframe(rootdir): # read data from file
